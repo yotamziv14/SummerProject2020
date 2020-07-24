@@ -5,11 +5,12 @@
             var c = document.getElementById("can");
             var ctx = c.getContext("2d");
             var x;
-            var y;
+            var y= 100;
+            var falling = false;
             document.addEventListener("mousemove",function(e){
-                clearInterval(inti);
-                x = e.clientX;
-                y = 100
+                if(!falling){
+                    x = e.clientX;
+                }
             },false)
             setInterval(function(){
                 ctx.beginPath();
@@ -26,6 +27,15 @@
                 ctx.fill();
                 ctx.stroke();
             },10)
+            
+            document.addEventListener("mousedown",function(){
+                falling=true;
+                var inti = setInterval(function(){
+                    if(y<c.height-20){
+                        y++;
+                    }
+                },2);
+            },false);
         </script>
     </body>
 </html>
