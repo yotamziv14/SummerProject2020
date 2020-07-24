@@ -1,0 +1,31 @@
+<!DOCTYPE html> 
+    <body>
+        <canvas id="can" width="1000" height="620" style="cursor: none;"></canvas>
+        <script>
+            var c = document.getElementById("can");
+            var ctx = c.getContext("2d");
+            var x;
+            var y;
+            document.addEventListener("mousemove",function(e){
+                clearInterval(inti);
+                x = e.clientX;
+                y = 100
+            },false)
+            setInterval(function(){
+                ctx.beginPath();
+                ctx.clearRect(0, 0, c.width, c.height);
+                if(x<=c.width-20 && x>=20){
+                ctx.arc(x,y,20,0,Math.PI*2);
+                }
+                else if(x<=20){
+                    ctx.arc(21,100,20,0,Math.PI*2);
+                }
+                else if(x>=c.width-20){
+                    ctx.arc(c.width-21,100,20,0,Math.PI*2);
+                }
+                ctx.fill();
+                ctx.stroke();
+            },10)
+        </script>
+    </body>
+</html>
