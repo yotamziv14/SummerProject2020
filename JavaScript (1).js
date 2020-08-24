@@ -210,27 +210,6 @@ window.addEventListener("mousemove", function (e) {
 }, false);
 
 window.addEventListener("keydown", function (e) {
-    if (e.key == "z") {
-        if (a) {
-            a = false;
-        }
-        else {
-            a = true;
-        }
-    }
-    if (a) {
-        if (!gameEnded) {
-            if (e.key == "r") {
-                Win("red");
-            }
-            if (e.key == "y") {
-                Win("yellow");
-            }
-            if (e.key == "a") {
-                Win("green");
-            }
-        }
-    }
     if (gameEnded) {
         if (e.key == "Enter") {
             NewGame(grid);
