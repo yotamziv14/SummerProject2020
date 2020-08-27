@@ -1,4 +1,6 @@
 ﻿class Disc {
+    //disk הגדרנו כל דסקית משחק בתור אובייקט מסוג
+    //לאובייקט דיסק יש את הקונסטרקטור שבונה אותו, ומתודה שמציירת אותו במיקום שהתקבל כארגומנטים של איקס ו-וואי
     constructor(color, radius) {
         this.color = color;
         this.radius = radius;
@@ -12,7 +14,7 @@
     }
 }
 
-var c = document.getElementById("Yohay");
+var c = document.getElementById("can");
 var ctx = c.getContext("2d");
 var sizeX = 7;
 var sizeY = 6;
@@ -27,8 +29,10 @@ var scoreYellow = 0;
 NewGame(grid);
 
 function NewGame() {
+    ///,הפונקציה מתחילה משחק חדש אחרי כל סיום משחק ומאתחלת את מספר התורות
+    ///מציגה את הניקוד על הקנווס, יוצרת לוח משחק ומציגה אותו
     turn = 0;
-    document.getElementById("Fishkel").innerText = "";
+    document.getElementById("winDisplay").innerText = "";
     document.getElementById("scoreRed").innerText = scoreRed.toString();
     document.getElementById("scoreYellow").innerText = scoreYellow.toString();
     gameEnded = false;
@@ -53,6 +57,8 @@ function NewGame() {
 }
 
 function MainGame(grid, x, turn) {
+    /// הפונקציה הראשית של המשחק. מקבלת מערך, מיקום איקס, ואת מספר התור, ובהתאם לכך מוסיפה
+
     ctx.lineWidth = "0.0000000000000000000000000000001";
     var y;
     y = Row(grid, x);
@@ -85,6 +91,8 @@ function MainGame(grid, x, turn) {
 }
 
 function Row(grid, x) {
+    /// הפונקציה בודקת אם השורה לא מלאה. היא מקבלת כארגומנט שורה מהאיוונט ליסנר ואת המערך של הלוח
+    ///ואם אכן השורה לא מלאה אז היא מחזירה את מיקום הוואי שבו צריך לשים את הדיסקית לאותה שורה
     for (var i = sizeY - 1; i >= 0; i--) {
         if (grid[x][i] != 1 && grid[x][i] != 2) {
             break;
@@ -97,8 +105,8 @@ function Row(grid, x) {
 window.addEventListener("mousedown", function (event) {
     if (!gameEnded) {
         if (event.button === 0) {
-            let rect = Yohay.getBoundingClientRect();
-            let scaleX = Yohay.width / rect.width;
+            let rect = can.getBoundingClientRect();
+            let scaleX = can.width / rect.width;
             let mouseX = (event.clientX - rect.left) * scaleX;
             if (mouseX >= 0 && mouseX <= c.width) {
                 turn = MainGame(grid, Math.floor(mouseX * sizeX / c.width), turn);
@@ -108,6 +116,7 @@ window.addEventListener("mousedown", function (event) {
 }, false);
 
 function CheckForDraw(grid) {
+    /// הפונקציה מקבלת את מערך לוח המשחק ובודקת אם קיים מצב של תיקו, כלומר כל הלוח מלא
     for (var i = 0; i < sizeX; i++) {
         for (var j = 0; j < sizeY; j++) {
             if (grid[i][j] == 0) {
@@ -119,6 +128,8 @@ function CheckForDraw(grid) {
 }
 
 function CheckForWin(grid) {
+    /// הפונקציה מקבלת את מערך לוח המשחק ובודקת אם יש ארבעה ברצף מאותו צבע בטור, שורה או אלכסון
+    /// ואם אכן קיים מצב ניצחון היא שולחת ארגומנט טיפוס סטרינג שבתוכו צבע המנצח לפונקציה ווין
     for (var i = 0; i < sizeX -  3; i++) {
         for (var j = 0; j < sizeY; j++) {
             if (grid[i][j] == 1 && grid[i + 1][j] == 1 && grid[i + 2][j] == 1 && grid[i + 3][j] == 1) {
@@ -162,27 +173,25 @@ function CheckForWin(grid) {
 }
 
 function Win(color) {
+    ///htmlהפונקציה מציגה את הצבע המנצח בפסקה שהובנתה מראש בדף ה
     ctx.clearRect(0, 0, c.width, c.height / sizeX);
     gameEnded = true;
     if (color == "red") {
         scoreRed++;
-        document.getElementById("Fishkel").style.color = color;
-        document.getElementById("Fishkel").innerText = "Red Wins, Press Enter to play again";
+        document.getElementById("winDisplay").style.color = color;
+        document.getElementById("winDisplay").innerText = "Red Wins, Press Enter to play again";
     }
     else if (color == "yellow") {
         scoreYellow++;
-        document.getElementById("Fishkel").style.color = color;
-        document.getElementById("Fishkel").innerText = "Yellow Wins, Press Enter to play again";
+        document.getElementById("winDisplay").style.color = color;
+        document.getElementById("winDisplay").innerText = "Yellow Wins, Press Enter to play again";
     }
     else if (color == "orange") {
         scoreRed += 0.5;
         scoreYellow += 0.5;
-        document.getElementById("Fishkel").style.color = color;
-        document.getElementById("Fishkel").innerText = "Draw, Press Enter to play again";
-    }
-    else {
-        document.getElementById("Fishkel").style.color = color;
-        document.getElementById("Fishkel").innerText = "Assaf is a pro and he allways wins, Press Enter to play again";
+        document.getElementById("winDisplay").style.color = color;
+        document.getElementById("winDisplay").innerText = "Draw, Press Enter to play again";
+    
     }
     document.getElementById("scoreRed").innerText = scoreRed.toString();
     document.getElementById("scoreYellow").innerText = scoreYellow.toString();
@@ -191,8 +200,8 @@ function Win(color) {
 window.addEventListener("mousemove", function (e) {
     ctx.lineWidth = "0.0000000000000000000000000000001";
     if (!gameEnded) {
-        let rect = Yohay.getBoundingClientRect();
-        let scaleX = Yohay.width / rect.width;
+        let rect = can.getBoundingClientRect();
+        let scaleX = can.width / rect.width;
         let mouseX = (event.clientX - rect.left) * scaleX;
         let x = Math.floor(mouseX * sizeX / c.width);
         if (x <= 6 && x >= 0) {

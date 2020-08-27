@@ -1,38 +1,13 @@
 <!DOCTYPE html> 
+    <head>
+        <script src="JavaScript (1).js"></script>
+    </head>
     <body>
+        
+        <div id = "scoreRed" style="margin: auto; width: 33%;"></div>
+        <div id = "scoreYellow" style="margin: auto; width: 33%;"></div>
+        <div id = "winDisplay" style="margin: auto; width: 33%;"></div>
         <canvas id="can" width="1000" height="620" style="cursor: none;"></canvas>
-        <script>
-            var c = document.getElementById("can");
-            var ctx = c.getContext("2d");
-            var x;
-            var y= 100;
-            var falling = false;
-            document.addEventListener("mousemove",function(e){
-                if(!falling){
-                    x = e.clientX;
-                }
-            },false)
-            function(){
-                
-            }
-            setInterval(function(){
-                ctx.beginPath();
-                ctx.clearRect(0, 0, c.width, c.height);
-                if(){
-                
-                }
-                ctx.fill();
-                ctx.stroke();
-            },10)
-            
-            document.addEventListener("mousedown",function(){
-                falling=true;
-                var inti = setInterval(function(){
-                    if(y<c.height-20){
-                        y++;
-                    }
-                },2);
-            },false);
-        </script>
+       
     </body>
 </html>
